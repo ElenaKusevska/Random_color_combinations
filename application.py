@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    # random seed in some random way
     def choose_color():
         hexadecimals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
         color_list = []
