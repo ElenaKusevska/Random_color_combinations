@@ -12,10 +12,14 @@ def index():
         color_list = []
         for i in range(0,6):
             loc = int((random.random()*15.99999999) // 1)
-            color_list.append(hexadecimals[loc])
+            color_list.append(hexadecimals[loc]);
         return "".join(color_list)
 
     col1 = choose_color()
     col2 = choose_color()
-    return render_template("rand_col.html", color1=col1, color2=col2)
+    return render_template("generate_random_colors.html", color1=col1, color2=col2)
+
+@app.route("/confirm")
+def confirm():
+    return render_template("confirm.html")
 
