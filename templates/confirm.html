@@ -5,7 +5,13 @@
     </head>
 
     <body>
-        <p> Thanks </p>
-        <a href="{{ url_for('index') }}"> Return </a>
+        <p> You gave the combination of {{text_col}} and {{background_col}}
+            a rating of {{rating}}. Thanks! </p>
+        <a href="{{ url_for('index') }}"> Rate another color combination </a>
+        <p> Past Ratings: <br>
+            {% for r in ratings %}
+                {{r}}, {{text_colors[loop.index0]}}, {{background_colors[loop.index0]}} <br>
+            {% endfor %}
+        </p>
     </body>
 </html>

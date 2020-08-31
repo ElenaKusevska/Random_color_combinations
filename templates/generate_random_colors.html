@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Random Colors</title>
+        <title>Random Colors - Rate</title>
 
         <script>
             // Uncheck any chekced radio buttons on refresh
@@ -30,8 +30,8 @@
     
         <style>
             body{
-                background-color:#{{color2}};
-                color:#{{color1}};
+                background-color:#{{background_col}};
+                color:#{{text_col}};
                 font-family:"Courier New", Courier, monospace;
                 text-align:center;
             }
@@ -85,28 +85,31 @@
                 How do you like this color combination?
             </div>
 
-            <form action="{{ url_for('confirm') }}" onsubmit="return validate_radios('ratings', 'html_prompt');">
+            <form action="{{ url_for('confirm') }}" onsubmit="return validate_radios('rating', 'html_prompt');" method="post">
                 <div class="radiogroup">
                     <label>
-                        <input type="radio" name="ratings" value="1" id="1"> 1
+                        <input type="radio" name="rating" value="1" id="1"> 1
                     </label>
 
                     <label>
-                        <input type="radio" name="ratings" value="2" id="2"> 2
+                        <input type="radio" name="rating" value="2" id="2"> 2
                     </label>
 
                     <label>
-                        <input type="radio" name="ratings" value="3" id="3"> 3
+                        <input type="radio" name="rating" value="3" id="3"> 3
                     </label>
 
                     <label>
-                        <input type="radio" name="ratings" value="4" id="4"> 4
+                        <input type="radio" name="rating" value="4" id="4"> 4
                     </label>
 
                     <label>
-                        <input type="radio" name="ratings" value="5" id="5"> 5
+                        <input type="radio" name="rating" value="5" id="5"> 5
                     </label>
                 </div>
+
+                <input type="hidden" name="text_col" value="#{{text_col}}" />
+                <input type="hidden" name="background_col" value="#{{background_col}}" />
 
                 <input type="submit" value="Submit">
                 <p id="html_prompt"> &nbsp </p>
