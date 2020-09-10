@@ -1,0 +1,47 @@
+sudo -i -u postgres
+createdb database
+
+psql
+
+
+postgres=# DROP TABLE IF EXISTS color_combinations_rated;
+DROP TABLE
+postgres=# CREATE TABLE color_combinations_rated (id SERIAL NOT NULL PRIMARY KEY, color1 VARCHAR NOT NULL, color2 VARCHAR NOT NULL, rating INTEGER NOT NULL);
+CREATE TABLE
+
+postgres=# \d
+                       List of relations
+ Schema |              Name               |   Type   |  Owner   
+--------+---------------------------------+----------+----------
+ public | color_combinations_rated        | table    | postgres
+ public | color_combinations_rated_id_seq | sequence | postgres
+(2 rows)
+
+postgres=# \dt
+                  List of relations
+ Schema |           Name           | Type  |  Owner   
+--------+--------------------------+-------+----------
+ public | color_combinations_rated | table | postgres
+(1 row)
+
+
+postgres=# INSERT INTO color_combinations_rated (color1, color2, rating) VALUES (ffffff, 000000, 5);
+ERROR:  column "ffffff" does not exist
+LINE 1: ...mbinations_rated (color1, color2, rating) VALUES (ffffff, 00...
+                                                             ^
+postgres=# INSERT INTO color_combinations_rated (color1, color2, rating) VALUES ('ffffff', '000000', 5);
+INSERT 0 1
+postgres=# SELECT * FROM color_combinations_rated;
+ id | color1 | color2 | rating 
+----+--------+--------+--------
+  1 | ffffff | 000000 |      5
+(1 row)
+
+postgres=# INSERT INTO color_combinations_rated (color1, color2, rating) VALUES ('#ffffff', '#000000', 5);
+INSERT 0 1
+postgres=# SELECT * FROM color_combinations_rated;
+ id | color1  | color2  | rating 
+----+---------+---------+--------
+  1 | ffffff  | 000000  |      5
+  2 | #ffffff | #000000 |      5
+(2 rows)
