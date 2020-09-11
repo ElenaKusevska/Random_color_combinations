@@ -43,6 +43,7 @@ table_info_tuples = [tup[:] for tup in table_info]
 print(table_info_tuples)
 print(" ")
 
-
+# Commit and close
+conn.commit()
 cur.close()
 conn.close()
