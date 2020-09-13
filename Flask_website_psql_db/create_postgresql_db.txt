@@ -1,15 +1,26 @@
 sudo -i -u postgres
-createdb database
+
+dropdb random_color_combinations
+createdb random_color_combinations
 
 psql
 
-
 postgres=# DROP TABLE IF EXISTS color_combinations_rated;
 DROP TABLE
-postgres=# CREATE TABLE color_combinations_rated (id SERIAL NOT NULL PRIMARY KEY, color1 VARCHAR NOT NULL, color2 VARCHAR NOT NULL, rating INTEGER NOT NULL);
+postgres=# CREATE TABLE color_combinations_rated 
+    (id SERIAL NOT NULL PRIMARY KEY, 
+    time TIME NOT NULL,
+    date DATE NOT NULL, 
+    color1 VARCHAR NOT NULL, 
+    color2 VARCHAR NOT NULL, 
+    rating INTEGER NOT NULL);
 CREATE TABLE
 
-postgres=# \d
+postgres=# \l - list databases
+postgres-# \c database_name - change to "database_name"
+
+
+postgres=# \d - list tables in current database
                        List of relations
  Schema |              Name               |   Type   |  Owner   
 --------+---------------------------------+----------+----------

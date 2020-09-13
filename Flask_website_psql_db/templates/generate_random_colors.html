@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Random Colors - Rate</title>
+
+        <script>
+            // Uncheck any chekced radio buttons on refresh
+            function onload_uncheck_radios() {
+                for(var i=1;i<6;i++) {
+                    document.getElementById(i).checked = false;
+                }
+
+            }
+
+            // Function to validate the radio buttons on input:
+            function validate_radios(html_name, html_prompt) {
+                var radios;
+                radios = document.getElementsByName(html_name);
+
+                for(var i=0,l=radios.length;i<l;i++) {
+                    if(radios[i].checked) {
+                        return true
+                    }
+                }
+
+                document.getElementById(html_prompt).innerHTML = "Please rate the color combination";
+                return false
+            }
+        </script>
+    
+        <style>
+            body{
+                background-color:#{{background_col}};
+                color:#{{text_col}};
+                font-family:"Courier New", Courier, monospace;
+                text-align:center;
+            }
+
+            .main{
+                position:fixed;
+                top:50%;
+                transform: translate(0%, -50%);
+            }
+
+            .p1{
+                font-size:6vw;
+                margin-left:10%;
+                margin-right:10%;
+                margin-bottom: 2%;
+            }
+
+            .radiogroup label {
+                display: inline-block;
+                text-align: center;
+                
+            }
+
+            @media screen and (min-width: 601px) {
+                .radiogroup label {    
+                    font-size: 2vw;
+                    padding-left: 2%;
+                    padding-right: 2%;
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                .radiogroup label {    
+                    font-size: 4vw;
+                    padding-left: 1%;
+                    padding-right: 1%;
+                }
+            }
+
+            .radiogroup label input[type="radio"] {
+                display: block;
+                margin-bottom: 1.5em
+            }
+        </style>
+    </head>
+
+    <body onload="onload_uncheck_radios()">    
+        <div class="main">
+            
+            <div class="p1"> 
+                How do you like this color combination?
+            </div>
+
+            <form action="{{ url_for('confirm') }}" onsubmit="return validate_radios('rating', 'html_prompt');" method="post">
+                <div class="radiogroup">
+                    <label>
+                        <input type="radio" name="rating" value="1" id="1"> 1
+                    </label>
+
+                    <label>
+                        <input type="radio" name="rating" value="2" id="2"> 2
+                    </label>
+
+                    <label>
+                        <input type="radio" name="rating" value="3" id="3"> 3
+                    </label>
+
+                    <label>
+                        <input type="radio" name="rating" value="4" id="4"> 4
+                    </label>
+
+                    <label>
+                        <input type="radio" name="rating" value="5" id="5"> 5
+                    </label>
+                </div>
+
+                <input type="hidden" name="text_col" value="#{{text_col}}" />
+                <input type="hidden" name="background_col" value="#{{background_col}}" />
+
+                <input type="submit" value="Submit">
+                <p id="html_prompt"> &nbsp </p>
+            </form>
+        </div> 
+    </body>
+</html>

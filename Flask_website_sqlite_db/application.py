@@ -48,19 +48,28 @@ def confirm():
     current_date_time = str(datetime.datetime.now()).split('.')[0]
     current_date = current_date_time.split(' ')[0]
     current_time = current_date_time.split(' ')[1]  
-    inserts = ('INSERT INTO color_combinations_rated (time, date, color1, color2, rating) '
-        + 'VALUES ( "' + current_date + '", "' + current_time + '", "' + background_col 
-        + '", "' + text_col + '",  ' + str(rating) + ');' )
-    cur.execute(inserts)
-    cur.execute( "INSERT INTO color_combinations_rated (time, date, color1, color2, rating) "
-        "VALUES (?, ?, ?, ?, ?)", (current_date, current_time, background_col, text_col, rating) )
+
+    # Insert values to database - method 1
+    #inserts = ('INSERT INTO color_combinations_rated (time, date, color1, color2, rating) '
+        #+ 'VALUES ( "' + current_date + '", "' + current_time + '", "' + background_col 
+        #+ '", "' + text_col + '",  ' + str(rating) + ');' )
+    #cur.execute(inserts)
+
+    # Insert values to database - method 2
+    #cur.execute( "INSERT INTO color_combinations_rated (time, date, color1, color2, rating) "
+        #"VALUES (?, ?, ?, ?, ?)", (current_date, current_time, background_col, text_col, rating) )
+
+    # Insert values to database - method 3
+    cur.execute("INSERT INTO color_combinations_rated (time, date, color1, color2, rating)" 
+        "VALUES (:time, :date, :color1, :color2, :rating)",
+        {"time": current_time, "date": current_date, "color1": background_col, "color2":text_col, "rating": rating})
     conn.commit()
 
     # Close connection:
     cur.close()
     conn.close()
 
-    return render_template("confirm.html", background_col=background_col, text_col=text_col, tests=inserts,
+    return render_template("confirm.html", background_col=background_col, text_col=text_col,
         rating=rating, ratings=ratings, background_colors=background_colors, text_colors=text_colors)
 
 @app.route("/test")
