@@ -21,7 +21,7 @@ current_date_time = str(datetime.datetime.now()).split('.')[0]
 current_date = current_date_time.split(' ')[0]
 current_time = current_date_time.split(' ')[1]
 insert_test_value = ( 'INSERT INTO color_combinations_rated (time, date, color1, color2, rating) '
-     + 'VALUES ( "' + current_date + '", "' + current_time + '", "#ffffff", "#000000", 5);' )
+     + 'VALUES ( "' + current_time + '", "' + current_date + '", "#ffffff", "#000000", 5);' )
 cur.execute(insert_test_value)
 
 # Create another entry to test the table and database are working:
@@ -29,7 +29,7 @@ current_date_time = str(datetime.datetime.now()).split('.')[0]
 current_date = current_date_time.split(' ')[0]
 current_time = current_date_time.split(' ')[1]
 insert_test_value = ( 'INSERT INTO color_combinations_rated (time, date, color1, color2, rating) '
-     + 'VALUES ( "' + current_date + '", "' + current_time + '", "#ffffff", "#000000", 5);' )
+     + 'VALUES ( "' + current_time + '", "' + current_date + '", "#ffffff", "#000000", 5);' )
 cur.execute(insert_test_value)
 
 # Print table:

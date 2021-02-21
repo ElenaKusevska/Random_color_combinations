@@ -1,17 +1,15 @@
 import sqlite3
-import datetime
 
 # Establish connection to local database:
 conn = sqlite3.connect('./db.sqlite') # Create database
 cur = conn.cursor()
 
 # Print table:
-select_test = ( 'SELECT * from color_combinations_rated' )
+select_test = 'SELECT * from color_combinations_rated'
 cur.execute(select_test)
 select_test_result = cur.fetchall()
 for row in select_test_result:
     print(row)
-#print(cur.fetchall())
 print(" ")
 
 # Get table info:
