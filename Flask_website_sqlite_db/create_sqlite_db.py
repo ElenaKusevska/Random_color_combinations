@@ -11,8 +11,8 @@ create_table = ( 'CREATE TABLE color_combinations_rated ('
         + 'id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, '
         + 'time TIME NOT NULL,'
         + 'date DATE NOT NULL,'
-        + 'color1 VARCHAR NOT NULL,'
-        + 'color2 VARCHAR NOT NULL,'
+        + 'background_col VARCHAR NOT NULL,'
+        + 'text_col VARCHAR NOT NULL,'
         + 'rating INTEGER NOT NULL );' )
 cur.execute(create_table)
 
@@ -20,7 +20,7 @@ cur.execute(create_table)
 current_date_time = str(datetime.datetime.now()).split('.')[0]
 current_date = current_date_time.split(' ')[0]
 current_time = current_date_time.split(' ')[1]
-insert_test_value = ( 'INSERT INTO color_combinations_rated (time, date, color1, color2, rating) '
+insert_test_value = ( 'INSERT INTO color_combinations_rated (time, date, background_col, text_col, rating) '
      + 'VALUES ( "' + current_time + '", "' + current_date + '", "#ffffff", "#000000", 5);' )
 cur.execute(insert_test_value)
 
@@ -28,8 +28,8 @@ cur.execute(insert_test_value)
 current_date_time = str(datetime.datetime.now()).split('.')[0]
 current_date = current_date_time.split(' ')[0]
 current_time = current_date_time.split(' ')[1]
-insert_test_value = ( 'INSERT INTO color_combinations_rated (time, date, color1, color2, rating) '
-     + 'VALUES ( "' + current_time + '", "' + current_date + '", "#ffffff", "#000000", 5);' )
+insert_test_value = ( 'INSERT INTO color_combinations_rated (time, date, background_col, text_col, rating) '
+     + 'VALUES ( "' + current_time + '", "' + current_date + '", "#000000", "#ffffff", 5);' )
 cur.execute(insert_test_value)
 
 # Print table:
