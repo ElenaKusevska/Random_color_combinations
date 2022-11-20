@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Random Colors - test</title>
+    </head>
+
+    <body>
+        <p> All Ratings <br>
+            {% for r in all_ratings %}
+                {{r, r.rating, r.text_col, r.background_col}}<br>
+            {% endfor %} </p>
+    </body>
+</html>
