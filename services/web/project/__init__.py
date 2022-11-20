@@ -1,21 +1,32 @@
-from flask import Flask, render_template, request, session
-from flask_session import Session
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
-
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import sessionmaker
 import os
 import random
 import datetime
 
 app = Flask(__name__)
 
-# Establish connection to local database:
-engine = create_engine(os.getenv("DATABASE_URL"))
-db = scoped_session(sessionmaker(bind=engine))
+# Establish connection to database
+app = Flask(__name__)
+app.config.from_object("project.config.Config")
+db = SQLAlchemy(app)
 
-SESSION_TYPE = 'filesystem'
-app.config.from_object(__name__)
-Session(app)
+print("db", db)
+
+class ColorRating(db.Model):
+    __tablename__ = "color_ratings"
+
+    id = db.Column(db.Integer, primary_key=True)
+    text_col = db.Column(db.String(7))
+    background_col = db.Column(db.String(7))
+    rating = db.Column(db.Integer)
+
+    def __init__(self, text_col, background_col, rating):
+        self.text_col = text_col
+        self.background_col = background_col 
+        self.rating = rating
+
 
 # Get input from user:
 @app.route("/")
@@ -54,20 +65,17 @@ def confirm():
     current_time = current_date_time.split(' ')[1]  
 
     # Insert values to database:
-    db.execute("INSERT INTO color_combinations_rated (time, date, color1, color2, rating)" 
-        "VALUES (:time, :date, :color1, :color2, :rating)",
-        {"time": current_time, "date": current_date, "color1": background_col, "color2":text_col, "rating": rating})
-    db.commit()
+    color_rating = ColorRating(text_col=text_col, background_col=background_col, rating=rating)
+    db.session.add(color_rating)
+    db.session.commit()
+
+    print(ColorRating.query.all())
 
     return render_template("confirm.html", background_col=background_col, text_col=text_col,
         rating=rating, ratings=ratings, background_colors=background_colors, text_colors=text_colors)
 
-@app.route("/test")
+@app.route("/allratings")
 def test():
-    testss = "A"
-    return render_template("test.html", testss=testss)
+    all_ratings= ColorRating.query.all()
+    return render_template("all_ratings.html", all_ratings=all_ratings)
 
-@app.route("/tests")
-def tests():
-    testss = "A"
-    return render_template("test.html", testss=testss)
